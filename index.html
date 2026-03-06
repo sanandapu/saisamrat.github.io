@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Samrat Anandapu | IT Infrastructure Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#00D4FF;--accent2:#7B61FF;--accent3:#00FF94}
+[data-theme="dark"]{--bg:#070B14;--surface:#0D1422;--surface2:#111827;--text:#E8EDF5;--muted:#8892A4;--border:rgba(255,255,255,0.07);--nav-bg:rgba(7,11,20,0.88);--glow:0 0 40px rgba(0,212,255,0.15);--shadow:0 20px 60px rgba(0,0,0,0.45);--toggle-track:#1a2540;--toggle-thumb:#00D4FF}
+[data-theme="light"]{--bg:#EEF2FF;--surface:#FFFFFF;--surface2:#E2E8FF;--text:#1A1F36;--muted:#5A6480;--border:rgba(0,0,50,0.09);--nav-bg:rgba(238,242,255,0.92);--glow:0 0 40px rgba(100,130,255,0.1);--shadow:0 20px 60px rgba(0,0,0,0.1);--toggle-track:#bfcbf0;--toggle-thumb:#7B61FF}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .4s,color .4s}
+body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+/* CURSOR */
+.cursor{width:12px;height:12px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .12s;mix-blend-mode:screen}
+.cursor-ring{width:38px;height:38px;border:1px solid rgba(0,212,255,.45);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+@media(hover:none){.cursor,.cursor-ring{display:none}}
+/* SCROLL BAR */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;z-index:300;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));border-radius:0 2px 2px 0}
+/* IPHONE TOGGLE */
+.theme-toggle{position:relative;width:56px;height:30px;cursor:pointer;flex-shrink:0}
+.theme-toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;inset:0;background:var(--toggle-track);border-radius:30px;transition:background .4s;border:1.5px solid rgba(128,128,200,.2)}
+.toggle-track::before{content:"\1F319";position:absolute;left:7px;top:50%;transform:translateY(-50%);font-size:11px;opacity:.7}
+.toggle-track::after{content:"\2600\FE0F";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:11px;opacity:.7}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:22px;height:22px;background:var(--toggle-thumb);border-radius:50%;transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .4s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+[data-theme="light"] .toggle-thumb{transform:translateX(26px)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 60px;display:flex;align-items:center;justify-content:space-between;gap:16px;backdrop-filter:blur(24px);background:var(--nav-bg);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s}
+.nav-logo{font-family:"Syne",sans-serif;font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;white-space:nowrap}
+.nav-center{display:flex;gap:28px;list-style:none}
+.nav-center a{color:var(--muted);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-center a::after{content:"";position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--accent);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.nav-center a:hover,.nav-center a.active{color:var(--accent)}
+.nav-center a:hover::after,.nav-center a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-cta{padding:9px 22px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:6px;font-size:.82rem;font-weight:500;text-decoration:none;cursor:pointer;transition:background .3s,color .3s,box-shadow .3s;white-space:nowrap}
+.nav-cta:hover{background:var(--accent);color:var(--bg);box-shadow:0 0 20px rgba(0,212,255,.4)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-drawer{display:none;flex-direction:column;position:fixed;top:61px;left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);z-index:199;padding:18px 24px;transition:background .4s}
+.nav-drawer.open{display:flex}
+.nav-drawer a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;padding:13px 0;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.06em;transition:color .2s}
+.nav-drawer a:last-child{border-bottom:none}
+.nav-drawer a:hover{color:var(--accent)}
+/* SECTIONS */
+section{padding:100px 60px;position:relative;z-index:1}
+.container{max-width:1200px;margin:0 auto}
+.section-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.section-title{font-family:"Syne",sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:14px;line-height:1.1;color:var(--text)}
+.section-subtitle{color:var(--muted);font-size:.97rem;max-width:620px;line-height:1.75;margin-bottom:56px}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:120px 60px 80px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.22);padding:6px 16px;border-radius:100px;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:26px;animation:fadeUp .8s ease forwards}
+.hero-tag::before{content:"";width:6px;height:6px;background:var(--accent3);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+.hero-name{font-family:"Syne",sans-serif;font-size:clamp(2.8rem,5.5vw,5.2rem);font-weight:800;line-height:1;margin-bottom:14px;color:var(--text);animation:fadeUp .8s .1s ease forwards;opacity:0}
+.hero-name span{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 50%,var(--accent3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradShift 4s ease infinite}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-role{font-size:1.05rem;color:var(--accent);margin-bottom:24px;animation:fadeUp .8s .2s ease forwards;opacity:0;min-height:1.5em;font-weight:500}
+.type-cursor{display:inline-block;color:var(--accent);animation:blink-cur .7s infinite;font-weight:300;margin-left:2px}
+@keyframes blink-cur{0%,100%{opacity:1}50%{opacity:0}}
+.hero-desc{font-size:.97rem;line-height:1.82;color:var(--muted);max-width:460px;margin-bottom:40px;animation:fadeUp .8s .3s ease forwards;opacity:0}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .8s .4s ease forwards;opacity:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.btn-primary{padding:13px 30px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:8px;font-size:.93rem;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .3s;box-shadow:0 4px 20px rgba(0,212,255,.28)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,212,255,.42)}
+.btn-secondary{padding:13px 30px;background:transparent;border:1px solid var(--border);color:var(--text);border-radius:8px;font-size:.93rem;font-weight:500;cursor:pointer;text-decoration:none;transition:border-color .3s,color .3s}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-cv{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:linear-gradient(135deg,rgba(0,255,148,.12),rgba(0,212,255,.12));border:1px solid rgba(0,255,148,.35);color:var(--accent3);border-radius:8px;font-size:.93rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .3s}
+.btn-cv:hover{background:linear-gradient(135deg,rgba(0,255,148,.25),rgba(0,212,255,.2));transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,255,148,.2)}
+/* HERO VISUAL */
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;animation:fadeIn 1s .5s ease forwards;opacity:0}
+@keyframes fadeIn{to{opacity:1}}
+.hero-avatar-ring{width:320px;height:320px;border-radius:50%;background:conic-gradient(var(--accent),var(--accent2),var(--accent3),var(--accent));padding:3px;animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:background .4s}
+.avatar-initials{font-family:"Syne",sans-serif;font-size:3.6rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.avatar-loc{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:5px}
+.floating-badge{position:absolute;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:9px;font-size:.8rem;font-weight:500;box-shadow:0 8px 32px rgba(0,0,0,.22);backdrop-filter:blur(10px);transition:background .4s,border-color .4s}
+.floating-badge .icon{font-size:1.3rem}
+.floating-badge.b1{top:10px;right:-10px;animation:float 3s ease-in-out infinite}
+.floating-badge.b2{bottom:50px;left:-20px;animation:float 3s 1s ease-in-out infinite}
+.floating-badge.b3{top:50%;right:-30px;animation:float 3s 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+.stat-num{font-family:"Syne",sans-serif;font-weight:700;font-size:1.05rem;color:var(--accent)}
+/* STATS */
+#stats{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:50px 60px;transition:background .4s,border-color .4s;z-index:1;position:relative}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:1200px;margin:0 auto}
+.stat-card{text-align:center;padding:18px;border-right:1px solid var(--border)}
+.stat-card:last-child{border-right:none}
+.stat-big{font-family:"Syne",sans-serif;font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block}
+.stat-label{color:var(--muted);font-size:.82rem;margin-top:5px}
+/* SKILLS */
+#skills{background:var(--bg);transition:background .4s}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.skill-category{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:30px;transition:transform .3s,border-color .3s,box-shadow .3s,background .4s;position:relative;overflow:hidden}
+.skill-category::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .3s}
+.skill-category:hover{transform:translateY(-6px);border-color:rgba(0,212,255,.25);box-shadow:var(--shadow),var(--glow)}
+.skill-category:hover::before{opacity:1}
+.skill-cat-icon{font-size:1.9rem;margin-bottom:14px;display:block}
+.skill-cat-title{font-family:"Syne",sans-serif;font-weight:700;font-size:.97rem;margin-bottom:18px;color:var(--text)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px}
+.skill-tag{background:rgba(128,128,128,.07);border:1px solid var(--border);padding:4px 11px;border-radius:100px;font-size:.75rem;color:var(--muted);transition:background .3s,color .3s,border-color .3s}
+.skill-category:hover .skill-tag{background:rgba(0,212,255,.07);border-color:rgba(0,212,255,.22);color:var(--accent)}
+.skill-bar-row{margin-bottom:14px}
+.skill-bar-label{display:flex;justify-content:space-between;margin-bottom:5px;font-size:.8rem;color:var(--muted)}
+.skill-bar-track{height:5px;background:rgba(128,128,128,.15);border-radius:10px;overflow:hidden}
+.skill-bar-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+.skill-category.featured{border-color:rgba(123,97,255,.3);background:linear-gradient(135deg,var(--surface) 0%,rgba(123,97,255,.04) 100%)}
+.skill-category.featured::before{background:linear-gradient(90deg,var(--accent2),var(--accent3));opacity:1}
+.featured-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(123,97,255,.12);border:1px solid rgba(123,97,255,.3);color:#a89cff;padding:2px 10px;border-radius:100px;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+/* EXPERIENCE */
+#experience{background:var(--surface);transition:background .4s}
+.timeline{position:relative;max-width:900px}
+.timeline::before{content:"";position:absolute;left:24px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),transparent)}
+.timeline-item{display:flex;gap:48px;padding-left:72px;position:relative;margin-bottom:52px}
+.timeline-item:last-child{margin-bottom:0}
+.timeline-dot{position:absolute;left:16px;top:8px;width:18px;height:18px;border-radius:50%;background:var(--surface);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;z-index:1;transition:background .4s}
+.timeline-dot::after{content:"";width:6px;height:6px;background:var(--accent);border-radius:50%}
+.timeline-content{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:26px 30px;flex:1;transition:border-color .3s,box-shadow .3s,transform .3s,background .4s}
+.timeline-content:hover{border-color:rgba(0,212,255,.28);box-shadow:0 8px 40px rgba(0,0,0,.18);transform:translateX(5px)}
+.timeline-meta{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.timeline-company{font-family:"Syne",sans-serif;font-weight:700;font-size:1.08rem;color:var(--text)}
+.timeline-role{color:var(--accent);font-size:.82rem;font-weight:500;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);padding:2px 11px;border-radius:100px}
+.timeline-date{color:var(--muted);font-size:.8rem;margin-bottom:14px}
+.timeline-bullets{list-style:none}
+.timeline-bullets li{color:var(--muted);font-size:.86rem;line-height:1.72;padding-left:15px;position:relative;margin-bottom:5px}
+.timeline-bullets li::before{content:"\25B9";position:absolute;left:0;color:var(--accent3)}
+/* PROJECTS */
+#projects{background:var(--bg);transition:background .4s}
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:34px;transition:transform .3s,border-color .3s,box-shadow .3s,background .4s;position:relative;overflow:hidden}
+.project-card::after{content:"";position:absolute;top:-60%;right:-60%;width:200px;height:200px;background:radial-gradient(circle,rgba(0,212,255,.06),transparent 70%);transition:all .4s}
+.project-card:hover{transform:translateY(-7px);border-color:rgba(0,212,255,.25);box-shadow:var(--shadow)}
+.project-card:hover::after{top:-30%;right:-30%}
+.project-year{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent3);margin-bottom:14px;background:rgba(0,255,148,.08);border:1px solid rgba(0,255,148,.2);display:inline-block;padding:2px 11px;border-radius:100px}
+.project-title{font-family:"Syne",sans-serif;font-weight:700;font-size:1.15rem;margin-bottom:12px;color:var(--text)}
+.project-desc{color:var(--muted);font-size:.86rem;line-height:1.76;margin-bottom:22px}
+.project-tech{display:flex;flex-wrap:wrap;gap:7px}
+.tech-pill{background:rgba(123,97,255,.1);border:1px solid rgba(123,97,255,.25);color:#a89cff;padding:3px 11px;border-radius:100px;font-size:.74rem}
+.project-impact{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);display:flex;gap:20px;flex-wrap:wrap}
+.impact-item{text-align:center}
+.impact-num{font-family:"Syne",sans-serif;font-weight:700;font-size:1.3rem;color:var(--accent3);display:block}
+.impact-text{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+/* CERTIFICATIONS */
+#certifications{background:var(--surface);transition:background .4s}
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cert-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;gap:14px;align-items:flex-start;transition:transform .3s,border-color .3s,background .4s}
+.cert-card:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.25)}
+.cert-icon{width:42px;height:42px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(123,97,255,.12));border:1px solid rgba(0,212,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.cert-name{font-weight:600;font-size:.86rem;margin-bottom:3px;color:var(--text)}
+.cert-issuer{font-size:.76rem;color:var(--muted)}
+/* TESTIMONIALS */
+#testimonials{background:var(--bg);transition:background .4s}
+.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.testimonial-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:34px;transition:transform .3s,border-color .3s,background .4s;position:relative}
+.testimonial-card:hover{transform:translateY(-5px);border-color:rgba(123,97,255,.3)}
+.quote-mark{font-size:5rem;line-height:0;font-family:"Syne",sans-serif;font-weight:800;color:rgba(123,97,255,.18);position:absolute;top:30px;right:28px}
+.stars{color:#FFD700;font-size:.82rem;letter-spacing:2px;margin-bottom:12px}
+.testimonial-text{color:var(--text);font-size:.9rem;line-height:1.82;margin-bottom:26px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:13px}
+.author-avatar{width:42px;height:42px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:"Syne",sans-serif;font-weight:700;font-size:.95rem;color:#fff}
+.author-name{font-weight:600;font-size:.88rem;color:var(--text)}
+.author-title{font-size:.76rem;color:var(--muted)}
+/* EDUCATION */
+#education{background:var(--surface);transition:background .4s}
+.edu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.edu-card{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:26px;display:flex;gap:18px;transition:border-color .3s,transform .3s,background .4s}
+.edu-card:hover{border-color:rgba(0,212,255,.22);transform:translateY(-4px)}
+.edu-icon{width:46px;height:46px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(123,97,255,.1));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.edu-degree{font-family:"Syne",sans-serif;font-weight:700;font-size:.93rem;margin-bottom:5px;color:var(--text)}
+.edu-school{color:var(--accent);font-size:.82rem;margin-bottom:3px}
+.edu-year{font-size:.76rem;color:var(--muted)}
+/* CONTACT */
+#contact{background:var(--bg);text-align:center;overflow:hidden;position:relative;transition:background .4s}
+#contact::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,.05) 0%,transparent 70%);pointer-events:none}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:26px;padding:56px;max-width:740px;margin:0 auto;position:relative;transition:background .4s,border-color .4s}
+.contact-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:32px}
+.contact-link{display:flex;align-items:center;gap:9px;padding:12px 20px;background:rgba(128,128,128,.05);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);font-size:.86rem;transition:all .3s}
+.contact-link:hover{background:rgba(0,212,255,.08);border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}
+.contact-icon{font-size:1.1rem}
+/* CONTACT FORM */
+.cf-divider{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.cf-divider::before,.cf-divider::after{content:"";flex:1;height:1px;background:var(--border)}
+.cf-divider span{font-size:.75rem;color:var(--muted);white-space:nowrap;letter-spacing:.08em;text-transform:uppercase}
+.contact-form{text-align:left}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cf-field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.cf-label{font-size:.75rem;font-weight:600;color:var(--muted);letter-spacing:.07em;text-transform:uppercase}
+.cf-input{background:rgba(128,128,128,.06);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:.92rem;font-family:"DM Sans",sans-serif;outline:none;transition:border-color .3s,box-shadow .3s;width:100%}
+.cf-input::placeholder{color:var(--muted)}
+.cf-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.1)}
+[data-theme="light"] .cf-input{background:rgba(0,0,50,.04)}
+.cf-textarea{resize:vertical;min-height:110px}
+.cf-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:transform .2s,box-shadow .3s,background .3s;font-family:"DM Sans",sans-serif;margin-top:4px}
+.cf-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,212,255,.35)}
+.cf-status{margin-top:12px;font-size:.85rem;text-align:center;min-height:20px}
+.cf-status.success{color:var(--accent3)}
+.cf-status.error{color:#ff6b6b}
+/* SOCIAL BAR */
+.social-bar{background:var(--surface);border-top:1px solid var(--border);padding:32px 60px;transition:background .4s,border-color .4s;position:relative;z-index:1}
+.social-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.social-label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.social-links{display:flex;gap:12px;flex-wrap:wrap}
+.social-btn{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:10px;text-decoration:none;font-size:.85rem;font-weight:500;border:1px solid var(--border);transition:all .3s;color:var(--muted);background:rgba(128,128,128,.05)}
+.social-btn svg{width:18px;height:18px;flex-shrink:0;transition:transform .3s}
+.social-btn:hover svg{transform:scale(1.15)}
+.social-btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.social-btn.linkedin:hover{background:rgba(0,119,181,.12);border-color:rgba(0,119,181,.4);color:#0077B5}
+.social-btn.instagram:hover{background:rgba(228,64,95,.1);border-color:rgba(228,64,95,.35);color:#E4405F}
+.social-btn.facebook:hover{background:rgba(24,119,242,.1);border-color:rgba(24,119,242,.35);color:#1877F2}
+.social-btn.xtwitter:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2);color:var(--text)}
+[data-theme="light"] .social-btn.xtwitter:hover{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.15)}
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:26px 60px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s;position:relative;z-index:1}
+.footer-copy{font-size:.8rem;color:var(--muted)}
+.footer-back{display:flex;align-items:center;gap:5px;text-decoration:none;color:var(--muted);font-size:.8rem;transition:color .3s}
+.footer-back:hover{color:var(--accent)}
+/* RESPONSIVE */
+@media(max-width:1024px){nav{padding:14px 28px}.nav-center{gap:18px}section{padding:80px 36px}#stats{padding:44px 36px}.skills-grid{grid-template-columns:repeat(2,1fr)}.certs-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){nav{padding:14px 20px}.nav-center{display:none}.nav-cta{display:none}.hamburger{display:flex}section{padding:70px 20px}#stats{padding:36px 20px}#hero{padding:100px 20px 60px}.hero-grid{grid-template-columns:1fr;gap:44px}.hero-visual{order:-1}.hero-avatar-ring{width:220px;height:220px}.avatar-initials{font-size:2.4rem}.floating-badge.b1{top:-5px;right:0;font-size:.72rem;padding:8px 12px}.floating-badge.b2{bottom:20px;left:-5px;font-size:.72rem;padding:8px 12px}.floating-badge.b3{display:none}.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-card{border-right:none;border-bottom:1px solid var(--border)}.stat-card:nth-child(odd){border-right:1px solid var(--border)}.stat-card:nth-last-child(-n+2){border-bottom:none}.skills-grid{grid-template-columns:1fr}.timeline::before{left:16px}.timeline-item{padding-left:50px}.timeline-dot{left:8px}.timeline-content{padding:18px}.projects-grid{grid-template-columns:1fr}.certs-grid{grid-template-columns:1fr}.testimonials-grid{grid-template-columns:1fr}.edu-grid{grid-template-columns:1fr}.contact-card{padding:32px 20px}.cf-row{grid-template-columns:1fr}.social-bar{padding:22px 20px}.social-btn span{display:none}.social-btn{padding:10px 14px}footer{flex-direction:column;gap:10px;text-align:center;padding:22px 20px}}
+@media(max-width:400px){.hero-name{font-size:2.4rem}.stats-grid{grid-template-columns:1fr}.stat-card{border-right:none!important;border-bottom:1px solid var(--border)!important}.stat-card:last-child{border-bottom:none!important}}
+</style>
+</head>
+<body>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">SSA</a>
+  <ul class="nav-center">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <label class="theme-toggle" title="Toggle light / dark">
+      <input type="checkbox" id="themeToggle">
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    </label>
+    <a href="mailto:anandapu13@gmail.com" class="nav-cta">Hire Me</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nav-drawer" id="navDrawer">
+  <a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a>
+  <a href="#certifications">Certifications</a><a href="#testimonials">Reviews</a>
+  <a href="#contact">Contact</a>
+  <a href="mailto:anandapu13@gmail.com" style="color:var(--accent)">&#128231; Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">&#128205; Manchester, United Kingdom &middot; Available for Opportunities</div>
+      <h1 class="hero-name">Sai Samrat<br><span>Anandapu</span></h1>
+      <p class="hero-role"><span id="typedRole"></span><span class="type-cursor">|</span></p>
+      <p class="hero-desc">7+ years building, securing, and scaling IT infrastructure across Azure, Microsoft 365, Power Platform, and hybrid environments. I turn complex technical challenges into seamless, automated digital experiences.</p>
+      <div class="hero-actions">
+        <a href="#experience" class="btn-primary">View My Journey</a>
+        <a href="#contact" class="btn-secondary">Get In Touch</a>
+        <a id="downloadCVBtn" href="#" class="btn-cv">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-avatar-ring">
+        <div class="hero-avatar-inner">
+          <span class="avatar-initials">SSA</span>
+          <span class="avatar-loc">&#128205; Manchester, UK</span>
+        </div>
+      </div>
+      <div class="floating-badge b1"><span class="icon">&#9925;</span><div><div class="stat-num">Azure</div><div style="font-size:.7rem;color:var(--muted)">Cloud Expert</div></div></div>
+      <div class="floating-badge b2"><span class="icon">&#9889;</span><div><div class="stat-num">Power Platform</div><div style="font-size:.7rem;color:var(--muted)">Apps &amp; Flows</div></div></div>
+      <div class="floating-badge b3"><span class="icon">&#127942;</span><div><div class="stat-num">M365</div><div style="font-size:.7rem;color:var(--muted)">Certified</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-card reveal"><span class="stat-big" data-target="7">0</span><div class="stat-label">Years of IT Experience</div></div>
+    <div class="stat-card reveal"><span class="stat-big" data-target="5">0</span><div class="stat-label">Companies Supported</div></div>
+    <div class="stat-card reveal"><span class="stat-big" data-target="3">0</span><div class="stat-label">Major Certifications</div></div>
+    <div class="stat-card reveal"><span class="stat-big" data-target="500">0</span><div class="stat-label">Issues Resolved+</div></div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">What I Bring</div>
+    <h2 class="section-title">Skills &amp; Expertise</h2>
+    <p class="section-subtitle">A full-stack IT toolkit spanning cloud infrastructure, Power Platform automation, security, identity management, and enterprise support.</p>
+    <div class="skills-grid">
+      <div class="skill-category featured reveal">
+        <div class="featured-badge">&#11088; Highlight Skill</div>
+        <span class="skill-cat-icon">&#9889;</span>
+        <div class="skill-cat-title">Power Automate &amp; Power Apps</div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Power Automate</span><span>92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div></div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Power Apps</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Workflow &amp; Process Design</span><span>92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div></div>
+        <div class="skill-tags" style="margin-top:14px"><span class="skill-tag">Org Flows</span><span class="skill-tag">Automated Approvals</span><span class="skill-tag">Expenses App</span><span class="skill-tag">Canvas Apps</span><span class="skill-tag">SharePoint Integration</span><span class="skill-tag">Teams Connectors</span><span class="skill-tag">Dynamics 365</span></div>
+      </div>
+      <div class="skill-category reveal">
+        <span class="skill-cat-icon">&#9925;</span>
+        <div class="skill-cat-title">Microsoft Azure &amp; Cloud</div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Azure Infrastructure</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Azure Migration</span><span>88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Azure AD &amp; Security</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
+        <div class="skill-tags" style="margin-top:14px"><span class="skill-tag">App Service</span><span class="skill-tag">Azure SQL</span><span class="skill-tag">Blob Storage</span><span class="skill-tag">Key Vault</span><span class="skill-tag">VMs &amp; VNets</span><span class="skill-tag">Azure Monitor</span><span class="skill-tag">ExpressRoute</span></div>
+      </div>
+      <div class="skill-category reveal">
+        <span class="skill-cat-icon">&#128231;</span>
+        <div class="skill-cat-title">Microsoft 365 Suite</div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>M365 Administration</span><span>95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div></div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>SharePoint &amp; Teams</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-tags" style="margin-top:14px"><span class="skill-tag">Exchange Online</span><span class="skill-tag">OneDrive</span><span class="skill-tag">Teams</span><span class="skill-tag">SharePoint Online</span><span class="skill-tag">Licence Management</span></div>
+      </div>
+      <div class="skill-category reveal">
+        <span class="skill-cat-icon">&#128421;</span>
+        <div class="skill-cat-title">Windows Server &amp; Active Directory</div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Active Directory</span><span>92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div></div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Windows Server</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-tags" style="margin-top:14px"><span class="skill-tag">Server 2016/2019</span><span class="skill-tag">DNS/DHCP/DFS</span><span class="skill-tag">Group Policy</span><span class="skill-tag">Domain Admin</span><span class="skill-tag">Patch Management</span></div>
+      </div>
+      <div class="skill-category reveal">
+        <span class="skill-cat-icon">&#128274;</span>
+        <div class="skill-cat-title">Security &amp; Networking</div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Security Monitoring</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Network Administration</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
+        <div class="skill-tags" style="margin-top:14px"><span class="skill-tag">Azure Security Centre</span><span class="skill-tag">IIS Admin</span><span class="skill-tag">VPN</span><span class="skill-tag">e-Safeguarding</span><span class="skill-tag">Firewall</span></div>
+      </div>
+      <div class="skill-category reveal">
+        <span class="skill-cat-icon">&#127915;</span>
+        <div class="skill-cat-title">ITSM &amp; Service Management</div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>Incident Management</span><span>92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div></div>
+        <div class="skill-bar-row"><div class="skill-bar-label"><span>ITIL Framework</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
+        <div class="skill-tags" style="margin-top:14px"><span class="skill-tag">ServiceNow</span><span class="skill-tag">JIRA</span><span class="skill-tag">FreshDesk</span><span class="skill-tag">USD</span><span class="skill-tag">L1 &amp; L2 Support</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Career Journey</div>
+    <h2 class="section-title">Work Experience</h2>
+    <p class="section-subtitle">Over 7 years of hands-on IT engineering across trade unions, education, cloud consultancy, and publishing.</p>
+    <div class="timeline">
+      <div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-meta"><span class="timeline-company">Usdaw Union</span><span class="timeline-role">2nd Line IT Support Analyst</span></div><div class="timeline-date">&#128197; September 2025 &ndash; Present &middot; Manchester, UK</div><ul class="timeline-bullets"><li>Promoted to 2nd Line &mdash; handling escalated incidents, infrastructure-level issues, and change requests.</li><li>Manage Microsoft 365 tenant: users, groups, Exchange Online, Teams, OneDrive, SharePoint &amp; licensing.</li><li>Administer Windows Server 2016+ including patching, domain admin, network config, and security monitoring.</li><li>Oversee Active Directory, DNS, DHCP, and DFS for organisational stability and uptime.</li><li>Drive continuous service improvement and mentor junior 1st line analysts.</li></ul></div></div>
+      <div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-meta"><span class="timeline-company">Usdaw Union</span><span class="timeline-role">IT Support Analyst</span></div><div class="timeline-date">&#128197; December 2022 &ndash; September 2025 &middot; Manchester, UK</div><ul class="timeline-bullets"><li>2023: Led end-to-end Microsoft 365 Migration &mdash; Exchange Online, Teams, SharePoint &amp; OneDrive, zero downtime.</li><li>Designed and deployed Power Automate organisational flows &mdash; automating approvals, HR notifications, and IT request routing.</li><li>Built and manages the org-wide Staff Expenses App in Power Apps with SharePoint &amp; automated approval flows.</li><li>Supported 300+ staff via ServiceNow and FreshDesk, meeting all SLA targets consistently.</li><li>Managed SharePoint Online intranet, Teams governance, and OneDrive policies.</li></ul></div></div>
+      <div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-meta"><span class="timeline-company">Lucid Connect Ltd</span><span class="timeline-role">IT Support Engineer</span></div><div class="timeline-date">&#128197; July 2022 &ndash; November 2022 &middot; Manchester, UK</div><ul class="timeline-bullets"><li>Provided IT support to academy schools ensuring all systems were effective, efficient, and secure.</li><li>Set up and maintained laptops, projectors, interactive whiteboards, and specialist IT equipment.</li><li>Administered O365 including users, groups, Teams, OneDrive, SharePoint, and licence management.</li></ul></div></div>
+      <div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-meta"><span class="timeline-company">C3D Learning UK Ltd</span><span class="timeline-role">IT Support Engineer</span></div><div class="timeline-date">&#128197; May 2021 &ndash; June 2022 &middot; Manchester, UK</div><ul class="timeline-bullets"><li>Designed and built Azure / On-prem Hybrid infrastructure end-to-end including ExpressRoute, VMs, VNets, Azure SQL.</li><li>Delivered Azure Migrations via Azure Migrate; managed Azure Security Centre and Azure Monitor.</li><li>Implemented PaaS, SaaS, and IaaS solutions; administered SQL backups, SharePoint Online, and IIS.</li></ul></div></div>
+      <div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-content"><div class="timeline-meta"><span class="timeline-company">Octopus Publications Pvt Ltd</span><span class="timeline-role">IT Support Engineer</span></div><div class="timeline-date">&#128197; October 2018 &ndash; December 2019 &middot; Hyderabad, India</div><ul class="timeline-bullets"><li>Managed Windows network infrastructure, SQL Server 2012/2016 databases, Active Directory, and IIS intranet.</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Key Deliverables</div>
+    <h2 class="section-title">Notable Projects</h2>
+    <p class="section-subtitle">High-impact technical projects showcasing real-world engineering &mdash; from large-scale cloud migrations to Power Platform tools built for everyday use.</p>
+    <div class="projects-grid">
+      <div class="project-card reveal"><span class="project-year">2023 &middot; Usdaw Union</span><h3 class="project-title">Microsoft 365 Migration Project</h3><p class="project-desc">End-to-end migration of the entire Usdaw Union workforce to Microsoft 365. Migrated email to Exchange Online, enabled Teams, moved storage to SharePoint &amp; OneDrive, configured security policies, and delivered staff training across all departments.</p><div class="project-tech"><span class="tech-pill">Exchange Online</span><span class="tech-pill">SharePoint Online</span><span class="tech-pill">Teams</span><span class="tech-pill">OneDrive</span><span class="tech-pill">Azure AD</span><span class="tech-pill">ServiceNow</span></div><div class="project-impact"><div class="impact-item"><span class="impact-num">300+</span><span class="impact-text">Users Migrated</span></div><div class="impact-item"><span class="impact-num">100%</span><span class="impact-text">Uptime</span></div><div class="impact-item"><span class="impact-num">M365</span><span class="impact-text">Full Suite</span></div></div></div>
+      <div class="project-card reveal"><span class="project-year">2023&ndash;2024 &middot; Usdaw Union</span><h3 class="project-title">Power Automate &mdash; Organisational Workflow Automation</h3><p class="project-desc">Designed and built a suite of Power Automate flows that transformed how Usdaw manages internal processes. Automated approval chains, HR notifications, IT request routing, and document sign-off workflows &mdash; replacing manual email processes entirely.</p><div class="project-tech"><span class="tech-pill">Power Automate</span><span class="tech-pill">SharePoint</span><span class="tech-pill">Teams Connectors</span><span class="tech-pill">Approval Flows</span><span class="tech-pill">HTTP Triggers</span></div><div class="project-impact"><div class="impact-item"><span class="impact-num">10+</span><span class="impact-text">Flows Built</span></div><div class="impact-item"><span class="impact-num">Hours</span><span class="impact-text">Saved Weekly</span></div><div class="impact-item"><span class="impact-num">Auto</span><span class="impact-text">Approvals</span></div></div></div>
+      <div class="project-card reveal"><span class="project-year">2024 &middot; Usdaw Union</span><h3 class="project-title">Staff Expenses App &mdash; Power Apps</h3><p class="project-desc">Built a fully functional Expenses Management App in Power Apps with SharePoint as the data layer. Staff submit and track expense claims from desktop or mobile. Managers get automated approvals via Power Automate. Replaced a paper-based process entirely &mdash; used org-wide.</p><div class="project-tech"><span class="tech-pill">Power Apps</span><span class="tech-pill">SharePoint Lists</span><span class="tech-pill">Power Automate</span><span class="tech-pill">Canvas App</span><span class="tech-pill">Mobile-ready</span></div><div class="project-impact"><div class="impact-item"><span class="impact-num">0</span><span class="impact-text">Paper Forms</span></div><div class="impact-item"><span class="impact-num">Live</span><span class="impact-text">Approvals</span></div><div class="impact-item"><span class="impact-num">Org-wide</span><span class="impact-text">Adoption</span></div></div></div>
+      <div class="project-card reveal"><span class="project-year">2021&ndash;2022 &middot; C3D Learning UK</span><h3 class="project-title">Azure Hybrid Cloud Infrastructure Build</h3><p class="project-desc">Designed and deployed a full Azure hybrid cloud infrastructure connecting on-premises servers via ExpressRoute. Set up Azure Migrate, VMs, VNets, Key Vault, Blob Storage, and Azure SQL. Implemented Security Centre and Monitor for full observability.</p><div class="project-tech"><span class="tech-pill">Azure Migrate</span><span class="tech-pill">Virtual Machines</span><span class="tech-pill">ExpressRoute</span><span class="tech-pill">Azure SQL</span><span class="tech-pill">Key Vault</span><span class="tech-pill">Azure Monitor</span></div><div class="project-impact"><div class="impact-item"><span class="impact-num">Hybrid</span><span class="impact-text">Architecture</span></div><div class="impact-item"><span class="impact-num">IaaS</span><span class="impact-text">PaaS &amp; SaaS</span></div><div class="impact-item"><span class="impact-num">Full</span><span class="impact-text">Observability</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Certifications &amp; Awards</h2>
+    <p class="section-subtitle">Microsoft-recognised certifications and honours demonstrating deep expertise across M365, Azure, and Power Platform.</p>
+    <div class="certs-grid">
+      <div class="cert-card reveal"><div class="cert-icon">&#128220;</div><div><div class="cert-name">MS-102: Manage Microsoft 365 Tenant</div><div class="cert-issuer">Microsoft &middot; Honours Award</div></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">&#127760;</div><div><div class="cert-name">MS-100: Microsoft 365 Platform Services</div><div class="cert-issuer">Microsoft &middot; Honours Award</div></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">&#9881;</div><div><div class="cert-name">MS-102: Configure Microsoft 365 Tenant</div><div class="cert-issuer">Microsoft &middot; Honours Award</div></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">&#9889;</div><div><div class="cert-name">Mastering Power Apps (QAMPAPPS)</div><div class="cert-issuer">Power Platform Certification</div></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">&#128311;</div><div><div class="cert-name">Microsoft Dynamics 365</div><div class="cert-issuer">Top Skill &middot; Microsoft Ecosystem</div></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">&#127891;</div><div><div class="cert-name">MSc Mechatronics &amp; Robotics Engineering</div><div class="cert-issuer">University of Central Lancashire &middot; 2021</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-label">What People Say</div>
+    <h2 class="section-title">Recommendations</h2>
+    <p class="section-subtitle">Colleagues and managers who have worked closely with Sai reflect on his technical ability, professionalism, and real-world impact.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal"><div class="quote-mark">"</div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testimonial-text">Sai is an exceptional IT professional who led our Microsoft 365 migration with outstanding skill. His technical depth in Azure and M365, combined with his calm, methodical approach under pressure, made what could have been a disruptive project an incredibly smooth experience.</p><div class="testimonial-author"><div class="author-avatar">IT</div><div><div class="author-name">IT Manager</div><div class="author-title">Usdaw Union &middot; Manchester</div></div></div></div>
+      <div class="testimonial-card reveal"><div class="quote-mark">"</div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testimonial-text">The Power Apps expenses solution Sai delivered was a game changer. He understood our requirements quickly, built something intuitive and reliable, and connected it seamlessly to Power Automate for approvals. Staff adopted it immediately &mdash; no training needed. Really impressive work.</p><div class="testimonial-author"><div class="author-avatar">FM</div><div><div class="author-name">Finance Manager</div><div class="author-title">Usdaw Union</div></div></div></div>
+      <div class="testimonial-card reveal"><div class="quote-mark">"</div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testimonial-text">Working with Sai at C3D Learning was a pleasure. He has a rare ability to bridge the gap between technical complexity and business needs. His Azure hybrid infrastructure work was meticulous, well-documented, and delivered on time. A truly reliable engineer you can count on.</p><div class="testimonial-author"><div class="author-avatar">TL</div><div><div class="author-name">Technical Lead</div><div class="author-title">C3D Learning UK Ltd</div></div></div></div>
+      <div class="testimonial-card reveal"><div class="quote-mark">"</div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testimonial-text">Sai consistently goes above and beyond. Whether diagnosing a tricky server issue, automating a business process, or training staff on Microsoft tools, he brings enthusiasm and expertise to everything. An invaluable part of our team and a pleasure to work with.</p><div class="testimonial-author"><div class="author-avatar">SM</div><div><div class="author-name">Senior Manager</div><div class="author-title">Usdaw Union</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Academic Background</div>
+    <h2 class="section-title">Education</h2>
+    <p class="section-subtitle">Engineering roots combined with continuous professional development across Microsoft, cloud, and Power Platform technologies.</p>
+    <div class="edu-grid">
+      <div class="edu-card reveal"><div class="edu-icon">&#127891;</div><div><div class="edu-degree">MSc Mechatronics, Robotics &amp; Automation Engineering</div><div class="edu-school">University of Central Lancashire</div><div class="edu-year">2020 &ndash; 2021</div></div></div>
+      <div class="edu-card reveal"><div class="edu-icon">&#9889;</div><div><div class="edu-degree">BEng Electrical, Electronics &amp; Communications Engineering</div><div class="edu-school">SRM University</div><div class="edu-year">2014 &ndash; 2018</div></div></div>
+      <div class="edu-card reveal"><div class="edu-icon">&#128210;</div><div><div class="edu-degree">Intermediate &mdash; Maths, Physics &amp; Chemistry</div><div class="edu-school">Sri Chaitanya Junior College, Hydernagar</div><div class="edu-year">2012 &ndash; 2014</div></div></div>
+      <div class="edu-card reveal"><div class="edu-icon">&#128218;</div><div><div class="edu-degree">Secondary School Education</div><div class="edu-school">Aryabhatta Concept School</div><div class="edu-year">Completed April 2012</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-card reveal">
+      <div class="section-label" style="text-align:center">Let's Connect</div>
+      <h2 class="section-title" style="text-align:center">Get In Touch</h2>
+      <p style="color:var(--muted);font-size:.97rem;line-height:1.76;text-align:center;margin-bottom:28px">Whether you have a project in mind, a role to fill, or just want to talk tech &mdash; I'm always happy to connect.</p>
+      <div class="contact-links">
+        <a href="mailto:anandapu13@gmail.com" class="contact-link"><span class="contact-icon">&#128231;</span> anandapu13@gmail.com</a>
+        <a href="https://www.linkedin.com/in/sai-samratanandapu-ab9836171" target="_blank" class="contact-link"><span class="contact-icon">&#128188;</span> LinkedIn</a>
+        <a href="#" class="contact-link"><span class="contact-icon">&#128205;</span> Manchester, UK</a>
+      </div>
+      <div class="cf-divider"><span>or send a message directly</span></div>
+      <div class="contact-form">
+        <div class="cf-row">
+          <div class="cf-field"><label class="cf-label">Your Name</label><input class="cf-input" id="cfName" type="text" placeholder="e.g. Jane Smith"></div>
+          <div class="cf-field"><label class="cf-label">Your Email</label><input class="cf-input" id="cfEmail" type="email" placeholder="your@email.com"></div>
+        </div>
+        <div class="cf-field"><label class="cf-label">Subject</label><input class="cf-input" id="cfSubject" type="text" placeholder="What's it about?"></div>
+        <div class="cf-field"><label class="cf-label">Message</label><textarea class="cf-input cf-textarea" id="cfMessage" placeholder="Tell me about the opportunity or project..."></textarea></div>
+        <button class="cf-submit" id="cfSubmit" onclick="handleFormSubmit()">
+          <span id="cfBtnText">Send Message</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <div id="cfStatus" class="cf-status"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL BAR -->
+<div class="social-bar">
+  <div class="social-bar-inner">
+    <span class="social-label">Find me on</span>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/sai-samratanandapu-ab9836171" target="_blank" class="social-btn linkedin" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <span>LinkedIn</span>
+      </a>
+      <a href="https://www.instagram.com/samrat_anandapu?igsh=MXAxZjJ1MmJmcDgzbA%3D%3D&utm_source=qr" target="_blank" class="social-btn instagram" title="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        <span>Instagram</span>
+      </a>
+      <a href="https://www.facebook.com/share/1EMBqKkoYf/?mibextid=wwXIfr" target="_blank" class="social-btn facebook" title="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <span>Facebook</span>
+      </a>
+      <a href="https://x.com/samratchintu?s=21" target="_blank" class="social-btn xtwitter" title="X (Twitter)">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <span>X</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">&#169; 2025 Sai Samrat Anandapu &middot; IT Infrastructure &amp; Power Platform Engineer &middot; Manchester, UK</div>
+  <a href="#hero" class="footer-back">Back to top &#8593;</a>
+</footer>
+
+<script>
+/* THEME */
+const html=document.documentElement,toggle=document.getElementById("themeToggle");
+const saved=localStorage.getItem("ssa-theme"),prefersDark=window.matchMedia("(prefers-color-scheme:dark)").matches;
+const init=saved||(prefersDark?"dark":"light");
+html.setAttribute("data-theme",init);toggle.checked=(init==="light");
+toggle.addEventListener("change",()=>{const n=toggle.checked?"light":"dark";html.setAttribute("data-theme",n);localStorage.setItem("ssa-theme",n)});
+
+/* CURSOR */
+const cursor=document.getElementById("cursor"),ring=document.getElementById("cursorRing");
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+"px";cursor.style.top=my+"px"});
+(function ar(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+"px";ring.style.top=ry+"px";requestAnimationFrame(ar)})();
+document.querySelectorAll("a,button,label").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{cursor.style.transform="translate(-50%,-50%) scale(2.5)";ring.style.transform="translate(-50%,-50%) scale(1.4)"});
+  el.addEventListener("mouseleave",()=>{cursor.style.transform="translate(-50%,-50%) scale(1)";ring.style.transform="translate(-50%,-50%) scale(1)"})
+});
+
+/* SCROLL PROGRESS */
+window.addEventListener("scroll",()=>{document.getElementById("scrollProgress").style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+"%"},{passive:true});
+
+/* HAMBURGER */
+const ham=document.getElementById("hamburger"),drawer=document.getElementById("navDrawer");
+ham.addEventListener("click",()=>{ham.classList.toggle("open");drawer.classList.toggle("open")});
+drawer.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{ham.classList.remove("open");drawer.classList.remove("open")}));
+
+/* REVEAL */
+const revObs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add("visible"),i*70)})},{threshold:.1});
+document.querySelectorAll(".reveal").forEach(el=>revObs.observe(el));
+
+/* COUNTERS */
+const cntObs=new IntersectionObserver(entries=>{entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  const el=entry.target,tgt=parseInt(el.dataset.target);let start=null;
+  const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/1800,1);el.textContent=Math.floor(p*tgt)+(tgt>=100?"+":(tgt>5?"+":""));if(p<1)requestAnimationFrame(step);else el.textContent=tgt+(tgt>=100?"+":(tgt>5?"+":""))};
+  requestAnimationFrame(step);cntObs.unobserve(el)})},{threshold:.5});
+document.querySelectorAll("[data-target]").forEach(el=>cntObs.observe(el));
+
+/* SKILL BARS */
+const barObs=new IntersectionObserver(entries=>{entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  entry.target.querySelectorAll(".skill-bar-fill").forEach((bar,i)=>setTimeout(()=>{bar.style.width=bar.dataset.width+"%"},i*130));
+  barObs.unobserve(entry.target)})},{threshold:.25});
+document.querySelectorAll(".skill-category").forEach(el=>barObs.observe(el));
+
+/* ACTIVE NAV */
+const sections=document.querySelectorAll("section[id]"),navAs=document.querySelectorAll(".nav-center a");
+window.addEventListener("scroll",()=>{let cur="";sections.forEach(s=>{if(window.scrollY>=s.offsetTop-220)cur=s.id});navAs.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur))},{passive:true});
+
+/* TYPING EFFECT */
+const roles=["IT Infrastructure & Cloud Engineer","Power Platform Specialist","Microsoft 365 Expert","Azure Solutions Engineer","Power Apps & Automate Builder"];
+let rIdx=0,cIdx=0,del=false;
+const typedEl=document.getElementById("typedRole");
+function typeRole(){
+  if(!typedEl)return;
+  const cur=roles[rIdx];
+  if(!del){typedEl.textContent=cur.slice(0,++cIdx);if(cIdx===cur.length){del=true;setTimeout(typeRole,2000);return}}
+  else{typedEl.textContent=cur.slice(0,--cIdx);if(cIdx===0){del=false;rIdx=(rIdx+1)%roles.length}}
+  setTimeout(typeRole,del?45:85)
+}
+typeRole();
+
+/* DOWNLOAD CV */
+const pdfB64="JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIgL0Y0IDUgMCBSCj4+CmVuZG9iagoyIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMSAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZCAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjIgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago0IDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLU9ibGlxdWUgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YzIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNSAwIG9iago8PAovQmFzZUZvbnQgL1phcGZEaW5nYmF0cyAvTmFtZSAvRjQgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago2IDAgb2JqCjw8Ci9Db250ZW50cyAxMSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxMCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ29udGVudHMgMTIgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTAgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjggMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyAxMCAwIFIgL1R5cGUgL0NhdGFsb2cKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0F1dGhvciAoXChhbm9ueW1vdXNcKSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDMwNTE1MDEwMyswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDMwNTE1MDEwMyswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoXChhbm9ueW1vdXNcKSkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iagoxMCAwIG9iago8PAovQ291bnQgMiAvS2lkcyBbIDYgMCBSIDcgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iagoxMSAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAyNTkyCj4+CnN0cmVhbQpHYiEjXT5CQU4+JnE5U1lrYSwkKixabU5bZlZfKVFdTHJbQUEhLGhnZVw3IT0hRzNTJFlhVVtccXMuJig4LWlYXyItMF4tXEk/JihoPUw9JGxZYkQmYF1yNCpgWWxTKDBxPWNnP29wJzZKRi1KXE4vLGIlKzhwVXU9JjhcJGVUVGBgSktQNE1odDkvMSpUJGVXUTsvOyY3O2MkMjNLNGNsLkBWRSFvO2A7NFklcCRtYTJPNmFJOj44alNwJSxQZkNIZzUwSUo5aW1UUTRCR2ltQS5mVzo6UiRwTUUsSWU0JDBhZCtMLS8rZTMuWExAPEdETVsxWSNFTCIiKUUlL3VbSChoR1E7YTBgM0dQJVtuWStMaWdMZnAiZiQ8WF9fUV9oXyxHSyxsXSo6LUNFSkJCNGh1bkAnZi4/YlorcSxaWWpbO0NxJzp0OzJuSy9WSiJsaE9GaSE5MjcmRitJNFRjNU5aSD1hYUdsUFpPOV10V1ROKjdvRE5FXVwtSWxbVyJBPzRZJTBpMDBbJVBvJFxURTdfO08xX2lGXEk/JDRcMWwiO2QrRz1POF5yLEsmVy84U09MdXBPKyxcOWw9W210Pm82aVpKQmszPmZcPyozTS1NZEYkNGMxUlgxTFVhJSRbWkByb0Q3XmEnajVzS25NND4icUk+SVQ5JTxOaTNpdSssPmp0NkFMUkEoIW0wS3IzIXA2XFRNcGU5Wz1BTTJhOW1rYzc/W0dvNDFnWU9ebTopWCd1Jz83R3EnPzNmbkBFNmcrY3E6LUVFbmZ1a0pLPEhLJEBURl5RbGlJdGZeSUI3XV00Uk9lWiEnNiQ9U00zXUtiLURaXl1rJ1UjKicrVGNXUzhtMChcISspcCJeYUstU2IkO1prUT89MlNwU2JKbW1FLTloUTZNLDdTbEo7QkNkaVBvNTVJP29jcFUtIW0xLzU1ZFItNG9OO3ROQmJaOSJFaTlbK10tJFZPKjQkIjxzODdoKTRVVk49V3JWQXJtTUtubzghL0JvPywmMkxVPC9oaSI5NTw7OixWOmtEdEIqa2Yla1xbRltwajBtPD5ZJFNIVEw0cTY0LWc4Rzs2Rkg/aWs5bC4rdFhLQj5adCxFajIsYj5ZVmFhKjhZSk9Bb1IwaHRyNiQ/IyRYKW85LzVsckRRLVleJmhBLWE1LzEkRFJdX09EVm5EJlU6REdeRzNcVSYwRjYxcFVLW0slJmBSJDpkSCguXT5bXFtlZUNgVDJKUTg2ZVMhbz03dSRTKENnRGxBU0JfSSVFLGM2MCh0XVIzXm4ucCtVcFE+NHJKSEJdJjI4PSs2bDI/aEZBS2tbSDRjN19BRSMsJTA6PClcVm5CWXI5KiZuOzFkPEwvSGBoOyZtZUUqQ0Q4O1IxPyFxMiJmITc/NV1nNDo1PC5oSCM2NjRtUEV0QzolPj8/a0knNjRuMmhocFA6S1crPmwvVGMzJ05cWWdoRlVYUCo6akQ7VEkrbVpmVlU9WU4laFZHTU4nXWVPKm8zTCxFIV89OWxSXighZEBNM249ZWJiTTRwYGUoZDRmQm5WayZcdGhDSV1NJDNxNnFaTk5NS15dOiZqREYlPEBuWTs2bztZZzBqWkxMTGN1NyFCYWVqQUBoLSRdTCJiRCtEQ1lrK0dCczNFKVc7ay5xLWRVZXJ1MDJoVDJOMlk9OzJtUEBuSk0wNUZSXyk/NDRiUUlIUUw6Wl5mayVXOyJTQDBMUkYpKlpGOiU5Sm9ybSE0aGlQJDBTb0RzMyxfXkJoPFhiTEFENUVraGNLVicnZURELWh1KFg8K0NYR19BVWZjTHJiXmxjN1VAPnEjMGgnNUw4bGhbcDBWZzlNP21ub2ooNmo4NzAlVUEsSD5WU14sUFVvMi5zJVIsQl5JRmBEcSpycFNmUEFXMmxlVnMoRjNtRiE1MTluOiNrP25kQy8/bmlhLz9hZWw0Tk5zW0BnJmNSP09VN1FvLFlvSzBIVDFCW21hJmsjMFRKVllIKmddV0kxdSsqOmdNMkZaLyc4XmRhOWRCPmAoclhoQEZMTSNVXF1zZmJwJl5ZaiUkIU0lJUNWK2Y1a2tbMlYuVyJZZy9pSE8mWXRZWFozQEdzQSlRRjJPWl1uZTZxZWNXPCVBZC9XIUdzKDlXbTRSSVgxYiZqbmxDNUNcKW02KWxxVUovYHFwVVhmcUI1QHRMci5hLGZAJTJjXWg7KC84Mmp0VGhNc2hmZUxbSmIoWDZMIVtcczBoX0RfOV5kUltgLmltK3EnNVlEKz1UM21kNkVBNmQwMTU5MiwlQ1wxIWRYRC9nKCohS1U2VHFDMDVLbl40YCpNMTpsXUoqKT1fU3EwVytyUFIybzc1clEhSUFlU2g7YkVdNkIwbGZmLGtBWWdsb2c0U21zL0wyPygsPyY8USU8PCZbTk5gV1ZialddUyZMRkFVJ1FSblkmajc3I0shYD9MZUxvVydrcFtURV09Rz1MKmUrJGxtbl1MOCIsWmlaXjtZRy5QK29kZjY0JlUtRmhBOD5yWExGXTBDM1JrIW0/OXRTQSwmQ2JlcWgqc08zXE0nal9nYj9NIlBnJkJGT0JaZm9Wc29Lblo4NkZQaVcwIj1kLDMlTmtXQ1lYO1hbM2cyYjgsUlFWKFRkIUxUbD5wMThQZGA3OCldbTIwZSYtLChPJnI/NkMkIzZuL0VdPSZZK0tXdDhwXTk6TjNMbyc8aD0nPF1WYmRRWm8mbGcrMUUraz1pS1IkQGA/JWV0JSoqOCM2akxeQFxcSCJDUT8rZi1OcUwjR2MsPGBYa0JgQSo2QE91XW5QcGVxcl4xYVhhXk4iI2JOU3BITlosVyJcQmA9NigiKEdhPyZpMVNDLEIrVFkqcSg+O0NJPG0jLnJEZjwpNidKbzNDKDUnVHI6ayMuUktHX1cjVixXKFVTYnFHQEsvOEEiSTtcYjk9RjtIOF5QZDVVUjA6NDEoaS8zYjdUQTI7Z1RWPExTQkhNZ2VSSmlDQC4qbzhjPSNDbVElOEMiPlgrMWRda0RTSD9oVFhlUDhlbTRNa1pJKSFNUGE7PDVWUFtwJixiSXNcMj1qR2JoSFpvIyIqIWQ7LGdEVlk+SSREWDY8QCNFXy5vYDs2U0s3cmFCNk9KbChDTFxRJiZoTmEhVS83aW1rRVFPLS1PMjRzLmxWJGBxPis8LGYidDVTJGxjRCs2NjVbQGAuZj03O1VPT1AsKGBZJ2paUWI2SDohVUBGXSVxWk5BVFE3VFgyXiVnaT9mYztEJG80RzFQJiNFSmUmc0l1XDk5QVs7THBTQF9QZyNFPlhUcklHXkokWSUpRG0rdFBaP2pUYFk/KiQsWW9bNDZiLlpQOkIpcyE+WWUjZEdPZkxFbl4/bzEyXW1rL1EqKkhYPVxUOnFEWGglY3AuLkRLVkxaI2w7SjVZVkJuKEFabU1fWi03clwqTUFiaD9sfj5lbmRzdHJlYW0KZW5kb2JqCjEyIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE2MDUKPj4Kc3RyZWFtCkdiISNcOWxvJkkmQUBzQm0mQiNlQ21sTEFWO3ROQ0VaMWNULz1UN1FhVFxDXSNyTiRmK0Q9alRvaipYbi0tJyU7W25gXkckcTE0P0c1Jl0rYEBfSixwYG48SGJsUVtdaVRxUWNpa11qRGAtNlNHP2JsTDRrZyhMJVg6LTtub2s8UFQnU1Q6SSIhP0Y8QmNOKjBKOlFcVlBnQl45VURXR2JjXTwkQGRZYmpNRXRtUjZFR0guZV5pPkcvaUlXajtLcS0mWWhyKUBGP2J1TEopI25FKz9mQ0guIltbLSMhPmg5WTh1QWdrLiJ0REJQPydGREBuPWMoO0o/NnJFXDhYI0g0UUVtQkE3KTxHVEBsY1ZCKF4jQlFXMHE6QUBYTEZiM2QhIWpURzA8PC9kKDZhZCdCb2EjczhdRls4a1Axcko7KzJcQT05VnIyKChwNlhHUDxGI19GQScocCJWPkcrbloycW0wYjAvPyUwWCgmWi4wKixNck5CYSFCQyhJMzFUYHBvKm88O2RVTU9VSEAuWF1FIiUvJExxMlNGP3VjVTw7SWchQ0ohWlZBKS1rPjVWPDBlTj9WUm5wSnJoZTUkRFllb2ZRZVhoWElOSVQzPCdBUSd1ZFIxJTZvRiRMQlYhSkVlQWw3OjxEJT9aYzhvSm4vRidEYz0rU1NNLUkrcFZxUyNBUXRwO2VPcDBWSkcmTkpXSlhmOmlEcT88dS9bWzhfa10oPitmY283YlRWTzg2NTZEb2IzKC5pbXEoZ3RqPiksInMoZVtVSFdOT2gjIVQkLDlaRWNnXyVCc1AhVXAraWtNcFhDaV9VPW9vTTtGQ0hSLSNWPlVkPFZVMF1cXTQjMEhpRUtxNV5Xa2pcaF1zJ2c5RDEsV2ZMKCwuM2NSN0o5QCh1OllaJm5EaWlzKks+K25hNlBvVV1rL0MyLmY4aWYxRTlvO2s+cDhTTjlXXj9WUyhDJy9pIilKWGQoVUxSKCthNm5dVz87PmpZPVdPYVRGRWNcL05idV1ibFVpUGFSbGU8PF1tZ0xpbTlVUzBUJD8hMVpDK3R1Pj9ZR0pwa3VJJzNcPEc7S1tzYSJHO3VbL1JwQiNIPFFMUDdLRTZYLl9hMHVtXzFjMEMnPGRgcyhmLT1HM1M6X21zYTdFYnQlaUhXUzdEISlHa0QnT08jS1w8KypmQD4ncDxLa15LNk1yU0c8RUQ1Uih1TUVyUzUqUy1WbGZxSjpZQCNIcjBeXT4oTiIiN2xBcm1OQjQvYSNKVC5dbTJPLnJFUDl0YE81TlRrQy9xNCMhPyxGX0U2MGY1PDw5Q25IKj0ibkZUTDtbVlk8VXQ2LmUxU0hlbTxJbSpDcHFnPkdpSmJZNzk2JDNRRl1pa08xZyokV3V0LSJnW241LVkjdGtiXFNSMm1XYXQvYlZbISVlRWtKXE85MlJZSV9WS0c7TXErXVcvKjktWDY6az5UNUQ1OjwjRmpwJ3V1QVFGWnVlWjxYMW83O2NdIj09a10sJlF1UHQ7J144KUdLSVVLYTRvSkgmTEAoTEBGImJCbEowIysnWEFKa0QkdEhka3VwWC5QZSpAJGkqSyhBSyIoPy1UXipoc1diZkRnYSJVKG5hTzo7SylOM19sTzNxYCM7OSUlOUIxP1Q3Pz9vW1gkX2FjNFVmWCQtZkBAcWlDJFlRMlFLKV5cPTYob2IkWitzLVorcSN1LU9gMjQ6KWtCKm9PV24tTUk5bSNELDBrOUNiNERyXFNUPHNmJkg/JFdgSCsiU0slZ0xPNW9Ia1xhOVNXWEQwUXJJPE8mbz0qdS9hNGRHMyxDXl1AJlFxRk46PkFYNnQ/OCwxbz86YiJfSChqYmhqKDNiI1JFZGhEaE0sNj1tKUtMP15ecUQ5PF5qcE5LJzFkTmwuK2ZuQlJxXCQwTUpYOnI9QzA7N1FSbDdjYHU/LyRARkNPZl44dClxaWcqSyxsLGI1V1FoQnVMODVndCt0KTBBZ243NyRnVilBNWRsOE4qSGdWMyFobmxaIixta1YxXEtrb1RfK0lbJWZzMm1xUVsta0VrK2pKVm0qZXJ0TEFnZlRIQUpyL2NAZTsxUW9IWyJZLURoWHAsUV1KOi8iImZENmhXPU0lLjc+b0ZKUiRrSFB+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDEzCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTIyIDAwMDAwIG4gCjAwMDAwMDAyMjkgMDAwMDAgbiAKMDAwMDAwMDM0MSAwMDAwMCBuIAowMDAwMDAwNDU2IDAwMDAwIG4gCjAwMDAwMDA1MzkgMDAwMDAgbiAKMDAwMDAwMDc0NCAwMDAwMCBuIAowMDAwMDAwOTQ5IDAwMDAwIG4gCjAwMDAwMDEwMTggMDAwMDAgbiAKMDAwMDAwMTI5OCAwMDAwMCBuIAowMDAwMDAxMzY0IDAwMDAwIG4gCjAwMDAwMDQwNDggMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8YjBmYWZiYzA0ODZmOWI5MWQzZmNkODg4YzFkY2VmNzI+PGIwZmFmYmMwNDg2ZjliOTFkM2ZjZDg4OGMxZGNlZjcyPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA5IDAgUgovUm9vdCA4IDAgUgovU2l6ZSAxMwo+PgpzdGFydHhyZWYKNTc0NQolJUVPRgo=";
+document.getElementById("downloadCVBtn").addEventListener("click",function(e){
+  e.preventDefault();
+  const a=document.createElement("a");
+  a.href="data:application/pdf;base64,"+pdfB64;
+  a.download="Sai_Samrat_Anandapu_CV.pdf";
+  document.body.appendChild(a);a.click();document.body.removeChild(a)
+});
+
+/* CONTACT FORM */
+function handleFormSubmit(){
+  const name=document.getElementById("cfName").value.trim();
+  const email=document.getElementById("cfEmail").value.trim();
+  const subject=document.getElementById("cfSubject").value.trim();
+  const message=document.getElementById("cfMessage").value.trim();
+  const status=document.getElementById("cfStatus");
+  const btn=document.getElementById("cfBtnText");
+  if(!name||!email||!message){status.textContent="Please fill in your name, email, and message.";status.className="cf-status error";return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){status.textContent="Please enter a valid email address.";status.className="cf-status error";return}
+  const body="Hi Sai,%0D%0A%0D%0A"+encodeURIComponent(message)+"%0D%0A%0D%0AFrom: "+encodeURIComponent(name)+" ("+encodeURIComponent(email)+")";
+  const sub=encodeURIComponent(subject||"Message from your portfolio website");
+  window.open("mailto:anandapu13@gmail.com?subject="+sub+"&body="+body,"_blank");
+  btn.textContent="Message Ready!";
+  document.getElementById("cfSubmit").style.background="linear-gradient(135deg,var(--accent3),#00a86b)";
+  status.textContent="Your email client will open with the message pre-filled. Just hit Send!";
+  status.className="cf-status success";
+  setTimeout(()=>{btn.textContent="Send Message";document.getElementById("cfSubmit").style.background="";status.textContent="";status.className="cf-status"},5000)
+}
+</script>
+</body>
+</html>
